@@ -1,0 +1,245 @@
+/* styles */
+/* called by your view template */
+
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
+
+@font-face {
+  font-family: "FontAwesome";
+  src: url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.eot");
+  src: url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.woff2")
+      format("woff2"),
+    url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.woff")
+      format("woff"),
+    url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf")
+      format("truetype"),
+    url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.svg?#fontawesomeregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #343332;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+p {
+  margin: 0;
+}
+a:visited,
+a:link {
+  color: #1AF2CA;
+}
+.emphasized-headline {
+  font-family: "Inconsolata", monospace;
+  font-size: 24px;
+  line-height: normal;
+  color: #1AF2CA;
+}
+.dialog-text {
+  font-family: "Inconsolata", monospace;
+  font-size: 16px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.dialog-box .row {
+  margin-bottom: 1em;
+}
+.centeredRow {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+#location-request {
+  display: none;
+}
+#no-results {
+  display: none;
+}
+#loading {
+  display: none;
+}
+.dialog-box {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: #454545;
+  color: #F3F3DD;
+  width: 80vw;
+  z-index: 20;
+  position: relative;
+  margin: 0 auto;
+  padding: 1em;
+  border-radius: 0.5em;
+  justify-content: space-between;
+  border: #1AF2CA 4px solid;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+  -webkit-transform: perspective(1px) translateY(-50%);
+  cursor: pointer; /* otherwise iOS Safari won't consider dialog boxes clickable to dismiss them :/ */
+}
+
+@media (min-width: 600px) {
+  .dialog-box {
+    width: 500px;
+  }
+}
+.close-button:before {
+  content: "\f00d";
+  font-family: FontAwesome;
+  position: relative;
+  color: #1AF2CA;
+  font-size: 24px;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#inset {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 12px;
+  background-color: #404040;
+  color: #ffffff;
+  z-index: 2 !important;
+  padding: 6px;
+  font-weight: bold;
+  width: 300px;
+}
+
+.marker {
+  background-image: url("https://cdn.glitch.com/7245a9c5-815d-4711-a0b6-ccdb4c1113ac%2Fmarker.png?v=1587302241118");
+  background-size: cover;
+  width: 41.5px;
+  height: 50px;
+  cursor: pointer;
+}
+
+#inset {
+  text-align: left;
+  font-family: "Inconsolata", monospace;
+  color: #F3F3DD;
+  background-color: #454545;
+  border-color: #454545;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+}
+.time p:before {
+  content: "\f017";
+  font-family: FontAwesome;
+  position: relative;
+  font-size: 16px;
+  left: -0.5em;
+}
+.time p {
+  font-size: 18px;
+  color: #BEDAD5;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0.5em;
+}
+.venue p:before {
+  content: "\f041";
+  font-family: FontAwesome;
+  position: relative;
+  font-size: 16px;
+  left: -0.5em;
+}
+.venue p {
+  margin-top: 0px;
+  margin-bottom: 0.5em;
+  font-size: 18px;
+  color: #BEDAD5;
+  margin-left: 0.5em;
+}
+.attribution:before {
+  content: "\f145";
+  font-family: FontAwesome;
+  position: relative;
+  font-size: 14px;
+  left: -0.5em;
+}
+.attribution {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  color: #1AF2CA;
+  margin-left: 0.5em;
+}
+.artist-name {
+  color: #BEDAD5;
+  font-size: 30px;
+  line-height: 1.3em;
+  margin-top: 0px;
+  margin-bottom: 0.5em;
+}
+.musicPlayer {
+  font-size: 18px;
+  color: #BEDAD5;
+  border: 5px solid #BEDAD5;
+  border-width: 2px;
+}
+.iframe-wrapper {
+  display: grid;
+  width: 250px;
+  height: 80px;
+}
+.iframe-loading {
+  grid-area: 1 / 1 / 1 / 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.no-music {
+  box-sizing: border-box;
+  padding: 1em;
+  width: 250px;
+  height: 80px;
+}
+.artist {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: 100%;
+}
+.carousel {
+  font-size: 24px;
+}
+.carousel-button {
+  all: unset;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.25em;
+  cursor: pointer;
+}
+.carousel-button:disabled {
+  opacity: 0.3;
+  cursor: unset;
+}
+#forward:before {
+  content: "\f0a9";
+  font-family: FontAwesome;
+  color: #BEDAD5;
+}
+#back:before {
+  content: "\f0a8";
+  font-family: FontAwesome;
+  color: #BEDAD5;
+}
