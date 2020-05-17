@@ -1,0 +1,19 @@
+{
+  "install": {
+    "include": [
+      "^package\\.json$",
+      "^\\.env$"
+    ]
+  },
+  "restart": {
+    "exclude": [
+      "^public/",
+      "^src/"
+    ],
+    "include": [
+      "^server\\.js$",
+      "^watch\\.json$"
+    ]
+  },
+  "throttle": 100
+}
