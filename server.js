@@ -3,23 +3,9 @@
 
 // init project
 const express = require("express");
-const cors = require("cors");
 const path = require("path");
 const app = express();
 const ky = require("ky-universal");
-
-const allowedOrigins = ["https://gigscape.glitch.me", "https://gigsca.pe", "https://www.gigsca.pe"];
-app.use(
-  cors({
-    origin: function(origin, callback) {
-      if (!allowedOrigins.includes(origin)) {
-        const msg = `The CORS policy for this site does not allow access from the specified origin.`;
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    }
-  })
-);
 
 // PWAs and location requests want HTTPS!
 function checkHttps(request, response, next) {

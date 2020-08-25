@@ -1,7 +1,6 @@
 dependencies:
   '@mapbox/mapbox-gl-geocoder': 4.5.1
   concurrently: 5.1.0
-  cors: 2.8.5
   express: 4.17.1
   http-proxy-middleware: 1.0.3
   ky: 0.19.1
@@ -3435,15 +3434,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
-  /cors/2.8.5:
-    dependencies:
-      object-assign: 4.1.1
-      vary: 1.1.2
-    dev: false
-    engines:
-      node: '>= 0.10'
-    resolution:
-      integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==
   /cosmiconfig/5.2.1:
     dependencies:
       import-fresh: 2.0.0
@@ -12117,7 +12107,6 @@ shrinkwrapVersion: 3
 specifiers:
   '@mapbox/mapbox-gl-geocoder': ^4.5.1
   concurrently: ^5.0.2
-  cors: ^2.8.5
   express: ^4.17.1
   http-proxy-middleware: ^1.0.3
   ky: ^0.19.1

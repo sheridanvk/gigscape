@@ -67,7 +67,7 @@ export default React.forwardRef(function Map(props, ref) {
     async function getEventListings(lat, lng) {
       try {
         const eventsResponse = await ky
-          .get("https://gigscape.glitch.me/api/events", {
+          .get("api/events", {
             searchParams: { lat, lng }
           })
           .json();
