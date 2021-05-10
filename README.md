@@ -1,31 +1,15 @@
-Welcome to Glitch
+Welcome to Gigscape
 =================
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+This is a simple map of concerts happening today, with links to the artists' music. Data is provided by Songkick and Spotify respectively. You can see the live version of this project at [https://gigsca.pe](https://gigsca.pe).
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
-
-Find out more [about Glitch](https://glitch.com/about).
-
-
-Your Project
-------------
-
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-Resources used:
-- https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/
-- https://developer.spotify.com/documentation/
-- https://glitch.com/edit/#!/starter-cra-and-express
-
-Made by [Glitch](https://glitch.com/)
--------------------
-
-\ ゜o゜)ノ
+To run your own version of this, follow these steps:
+- Create a netlify account at netlify.com
+- Fork this repo, and then clone it onto your local machine, and change directories into it (`cd gigscape`)
+- Log into the netlify account you just created, using `netlify login`
+- Link your forked github repo to a new project on netlify
+- Add the following environment variables into the project you just linked to on netlify.com:
+    - SONGKICK_API_KEY
+    - SPOTIFY_CLIENT_ID
+    - SPOTIFY_CLIENT_SECRET
+- Run `npm start dev`, or if you want to attach a debugger to the functions as you're developing them, use `npm run debug`.

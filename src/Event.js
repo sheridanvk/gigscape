@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import ky from "ky/umd";
+import axios from "axios";
 
 export default function Event({ event }) {
   const artists = useMemo(
@@ -14,11 +14,10 @@ export default function Event({ event }) {
     async function getSpotifyInfo(artistName) {
       setSpotifyInfoLoaded(false);
       try {
-        const spotifyInfo = await ky
-          .get("https://gigscape.glitch.me/api/artist/by/name", {
-            searchParams: { name: artistName }
-          })
-          .json();
+        const {data: spotifyInfo} = await axios
+          .get(".netlify/functions/getArtistByName", {
+            params: { name: artistName }
+          });
         setCurrentArtistSpotify(spotifyInfo);
       } catch (error) {
         setCurrentArtistSpotify(undefined);
