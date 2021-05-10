@@ -15,7 +15,7 @@ export default function Event({ event }) {
       setSpotifyInfoLoaded(false);
       try {
         const spotifyInfo = await ky
-          .get("https://gigscape.glitch.me/api/artist/by/name", {
+          .get(".netlify/functions/getArtistByName", {
             searchParams: { name: artistName }
           })
           .json();
