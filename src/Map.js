@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import ky from "ky/umd";
+import axios from "axios";
 import Header from "./Header";
 import Event from "./Event";
 
@@ -66,11 +66,10 @@ export default React.forwardRef(function Map(props, ref) {
   useEffect(() => {
     async function getEventListings(lat, lng) {
       try {
-        const eventsResponse = await ky
+        const { data: eventsResponse } = await axios
           .get(".netlify/functions/getConcerts", {
-            searchParams: { lat, lng }
-          })
-          .json();
+            params: { lat, lng }
+          });
         setEvents(eventsResponse);
       } catch (error) {
         setEvents([]);

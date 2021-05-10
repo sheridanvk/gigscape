@@ -13,8 +13,7 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^4.5.1",
-    "ky": "^0.28.0",
-    "ky-universal": "^0.9.1",
+    "axios": "^0.21.1",
     "mapbox-gl": "^1.9.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.1",

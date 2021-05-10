@@ -1,4 +1,4 @@
-const ky = require("ky-universal");
+const axios = require("axios");
 
 // Return a date of format 2019-01-01
 const dateString = date => {
@@ -12,10 +12,10 @@ const dateString = date => {
 exports.handler = async function (event, context) {
     const { lat, lng } = event.queryStringParameters;
     try {
-        const response = await ky.get(
+        const { data: songkickData } = await axios.get(
             "https://api.songkick.com/api/3.0/events.json?",
             {
-                searchParams: {
+                params: {
                     location: `geo:${lat},${lng}`,
                     min_date: dateString(new Date()),
                     max_date: dateString(new Date()),
@@ -24,7 +24,6 @@ exports.handler = async function (event, context) {
                 }
             }
         );
-        const songkickData = await response.json();
         const events = songkickData.resultsPage.results.event;
         if (events) {
             const filteredEvents = events.filter(event => event.status === "ok");

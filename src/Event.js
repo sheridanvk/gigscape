@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import ky from "ky/umd";
+import axios from "axios";
 
 export default function Event({ event }) {
   const artists = useMemo(
@@ -14,9 +14,9 @@ export default function Event({ event }) {
     async function getSpotifyInfo(artistName) {
       setSpotifyInfoLoaded(false);
       try {
-        const spotifyInfo = await ky
+        const {data: spotifyInfo} = await axios
           .get(".netlify/functions/getArtistByName", {
-            searchParams: { name: artistName }
+            params: { name: artistName }
           })
           .json();
         setCurrentArtistSpotify(spotifyInfo);
