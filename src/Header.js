@@ -45,7 +45,7 @@ export default function Header({ accessToken, map }) {
   return (
     <StyledHeader>
       <StyledLogo
-        src="https://cdn.glitch.com/7245a9c5-815d-4711-a0b6-ccdb4c1113ac%2Fgigscape-logo.png?v=1587900781988"
+        src="/gigscape_logo.png"
       ></StyledLogo>
       <StyledGeocoder id="geocoder" ref={geocoderRef}></StyledGeocoder>
     </StyledHeader>

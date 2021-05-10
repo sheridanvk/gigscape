@@ -124,7 +124,7 @@ a:link {
 }
 
 .marker {
-  background-image: url("https://cdn.glitch.com/7245a9c5-815d-4711-a0b6-ccdb4c1113ac%2Fmarker.png?v=1587302241118");
+  background-image: url("/music_note.png");
   background-size: cover;
   width: 41.5px;
   height: 50px;
