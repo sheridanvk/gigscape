@@ -17,8 +17,7 @@ export default function Event({ event }) {
         const {data: spotifyInfo} = await axios
           .get(".netlify/functions/getArtistByName", {
             params: { name: artistName }
-          })
-          .json();
+          });
         setCurrentArtistSpotify(spotifyInfo);
       } catch (error) {
         setCurrentArtistSpotify(undefined);

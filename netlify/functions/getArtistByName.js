@@ -25,10 +25,8 @@ exports.handler = async function (event, context) {
         const { data: spotifyArtistResults } = await axios.get("https://api.spotify.com/v1/search", {
             params: {
                 q: name,
-                type: "artist",
-                apikey: process.env.SPOTIFY_API_KEY
+                type: "artist"
             },
-        }, {
             headers: {
                 Authorization: `Bearer ${process.env.SPOTIFY_AUTH_TOKEN}`
             }
