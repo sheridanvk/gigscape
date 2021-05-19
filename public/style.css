@@ -34,13 +34,13 @@ p {
 }
 a:visited,
 a:link {
-  color: #1AF2CA;
+  color: #1af2ca;
 }
 .emphasized-headline {
   font-family: "Inconsolata", monospace;
   font-size: 24px;
   line-height: normal;
-  color: #1AF2CA;
+  color: #1af2ca;
 }
 .dialog-text {
   font-family: "Inconsolata", monospace;
@@ -73,7 +73,7 @@ a:link {
   justify-content: space-between;
   flex-direction: column;
   background-color: #454545;
-  color: #F3F3DD;
+  color: #f3f3dd;
   width: 80vw;
   z-index: 20;
   position: relative;
@@ -81,7 +81,7 @@ a:link {
   padding: 1em;
   border-radius: 0.5em;
   justify-content: space-between;
-  border: #1AF2CA 4px solid;
+  border: #1af2ca 4px solid;
   top: 50%;
   transform: perspective(1px) translateY(-50%);
   -webkit-transform: perspective(1px) translateY(-50%);
@@ -97,11 +97,12 @@ a:link {
   content: "\f00d";
   font-family: FontAwesome;
   position: relative;
-  color: #1AF2CA;
+  color: #1af2ca;
   font-size: 24px;
 }
 
-#map {
+#mapContainer {
+  height: 100vh;
   position: absolute;
   top: 0;
   right: 0;
@@ -134,7 +135,7 @@ a:link {
 #inset {
   text-align: left;
   font-family: "Inconsolata", monospace;
-  color: #F3F3DD;
+  color: #f3f3dd;
   background-color: #454545;
   border-color: #454545;
   padding: 1.5em;
@@ -150,7 +151,7 @@ a:link {
 }
 .time p {
   font-size: 18px;
-  color: #BEDAD5;
+  color: #bedad5;
   margin-top: 0px;
   margin-bottom: 0px;
   margin-left: 0.5em;
@@ -166,7 +167,7 @@ a:link {
   margin-top: 0px;
   margin-bottom: 0.5em;
   font-size: 18px;
-  color: #BEDAD5;
+  color: #bedad5;
   margin-left: 0.5em;
 }
 .attribution:before {
@@ -180,11 +181,11 @@ a:link {
   margin-top: 0px;
   margin-bottom: 0px;
   font-size: 14px;
-  color: #1AF2CA;
+  color: #1af2ca;
   margin-left: 0.5em;
 }
 .artist-name {
-  color: #BEDAD5;
+  color: #bedad5;
   font-size: 30px;
   line-height: 1.3em;
   margin-top: 0px;
@@ -192,8 +193,8 @@ a:link {
 }
 .musicPlayer {
   font-size: 18px;
-  color: #BEDAD5;
-  border: 5px solid #BEDAD5;
+  color: #bedad5;
+  border: 5px solid #bedad5;
   border-width: 2px;
 }
 .iframe-wrapper {
@@ -236,10 +237,10 @@ a:link {
 #forward:before {
   content: "\f0a9";
   font-family: FontAwesome;
-  color: #BEDAD5;
+  color: #bedad5;
 }
 #back:before {
   content: "\f0a8";
   font-family: FontAwesome;
-  color: #BEDAD5;
+  color: #bedad5;
 }

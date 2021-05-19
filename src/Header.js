@@ -36,7 +36,7 @@ export default function Header({ accessToken, map }) {
       accessToken: accessToken,
       flyTo: { duration: 0 },
       mapboxgl,
-      placeholder: "Search for location"
+      placeholder: "Search for location",
     });
 
     geocoderRef.current.appendChild(geocoder.onAdd(map));
@@ -44,9 +44,7 @@ export default function Header({ accessToken, map }) {
 
   return (
     <StyledHeader>
-      <StyledLogo
-        src="/gigscape_logo.png"
-      ></StyledLogo>
+      <StyledLogo src="/gigscape_logo.png"></StyledLogo>
       <StyledGeocoder id="geocoder" ref={geocoderRef}></StyledGeocoder>
     </StyledHeader>
   );

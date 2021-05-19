@@ -1,34 +1,42 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import axios from "axios";
+import { useQuery } from "react-query";
+
+const parseArtistDisplayName = (displayName) => {
+  // sometimes the market is provided in parentheses after the artist name, so we split them
+  const market = displayName.match(/\((.*?)\)/);
+  const artistName = displayName.replace(/ \((.*?)\)/, "");
+  const result = { artistName };
+  if (market) result.market = market;
+  return result;
+};
 
 export default function Event({ event }) {
   const artists = useMemo(
-    () => event.performance.map(performance => performance.artist),
+    () => event.performance.map((performance) => performance.artist),
     [event]
   );
   const [artistIndex, setArtistIndex] = useState(0);
-  const [spotifyInfoLoaded, setSpotifyInfoLoaded] = useState(false);
-  const [currentArtistSpotify, setCurrentArtistSpotify] = useState(null);
 
-  useEffect(() => {
-    async function getSpotifyInfo(artistName) {
-      setSpotifyInfoLoaded(false);
-      try {
-        const {data: spotifyInfo} = await axios
-          .get(".netlify/functions/getArtistByName", {
-            params: { name: artistName }
-          });
-        setCurrentArtistSpotify(spotifyInfo);
-      } catch (error) {
-        setCurrentArtistSpotify(undefined);
-      }
-      setSpotifyInfoLoaded(true);
-    }
-    getSpotifyInfo(artists[artistIndex].displayName);
-  }, [artistIndex, artists]);
+  const {
+    isLoading,
+    isError,
+    data: currentArtistSpotify,
+  } = useQuery(
+    `artistName-${artists[artistIndex].displayName}`,
+    async () =>
+      (
+        await axios.get(".netlify/functions/getArtistByName", {
+          params: {
+            name: parseArtistDisplayName(artists[artistIndex].displayName)
+              .artistName,
+          },
+        })
+      ).data
+  );
 
   const playerHTML = useMemo(() => {
-    if (spotifyInfoLoaded && !currentArtistSpotify) {
+    if ((!isLoading && !currentArtistSpotify) || isError) {
       return (
         <p className="no-music">
           Can't find music on Spotify :( try{" "}
@@ -49,7 +57,7 @@ export default function Event({ event }) {
           <div className="iframe-loading">
             <p>Loading music...</p>
           </div>
-          {spotifyInfoLoaded && (
+          {!isLoading && (
             <iframe
               key={currentArtistSpotify.id}
               src={`https://open.spotify.com/embed?uri=spotify:artist:${currentArtistSpotify.id}`}
@@ -57,7 +65,7 @@ export default function Event({ event }) {
               height="80"
               frameBorder="0"
               style={{
-                gridArea: "1 / 1 / 1 / 1"
+                gridArea: "1 / 1 / 1 / 1",
               }}
               allowtransparency="true"
               allow="encrypted-media"
@@ -67,13 +75,13 @@ export default function Event({ event }) {
         </div>
       );
     }
-  }, [artists, artistIndex, currentArtistSpotify, spotifyInfoLoaded]);
+  }, [artists, artistIndex, currentArtistSpotify, isLoading]);
 
   return (
     <div id="inset">
       <div className="row">
         <div className="time">
-          <p>{event.start.time || 'Check listing'}</p>
+          <p>{event.start.time || "Check listing"}</p>
         </div>
         {artists.length > 1 && (
           <div className="carousel row">
