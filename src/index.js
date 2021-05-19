@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import Map from "./Map";
 import "mapbox-gl/dist/mapbox-gl.css";

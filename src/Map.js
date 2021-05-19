@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import React, { useEffect, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import Header from "./Header";
 import Event from "./Event";

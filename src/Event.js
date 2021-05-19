@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 const parseArtistDisplayName = (displayName) => {
   // sometimes the market is provided in parentheses after the artist name, so we split them
   const market = displayName.match(/\((.*?)\)/);
-  const artistName = displayName.replace(/\ \((.*?)\)/, "");
+  const artistName = displayName.replace(/ \((.*?)\)/, "");
   const result = { artistName };
   if (market) result.market = market;
   return result;
