@@ -12,7 +12,7 @@
     "debug": "netlify dev --inspect"
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.5.1",
+    "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "axios": "^0.21.1",
     "mapbox-gl": "^1.9.1",
     "react": "^16.13.0",
