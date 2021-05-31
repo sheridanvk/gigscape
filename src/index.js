@@ -22,7 +22,7 @@ const Application = () => {
   useEffect(() => {
     const fetchIPLocation = async () => {
       const { latitude: lat, longitude: lng } = (
-        await axios.get("http://geolocation-db.com/json/")
+        await axios.get("https://geolocation-db.com/json/")
       ).data;
       setInitialLocation({ lat, lng });
     };
