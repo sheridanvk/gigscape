@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 import Map from "./Map";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -17,10 +18,22 @@ const queryClient = new QueryClient({
 });
 
 const Application = () => {
+  const [initialLocation, setInitialLocation] = useState(null);
+  useEffect(() => {
+    const fetchIPLocation = async () => {
+      const { latitude: lat, longitude: lng } = (
+        await axios.get("https://geolocation-db.com/json/")
+      ).data;
+      setInitialLocation({ lat, lng });
+    };
+
+    fetchIPLocation();
+  }, []);
+
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <Map />
+        {initialLocation && <Map initialLocation={initialLocation} />}
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </React.StrictMode>

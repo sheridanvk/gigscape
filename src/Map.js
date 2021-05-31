@@ -17,11 +17,11 @@ const dateToday = () => {
   return result.toISOString().split("T")[0];
 };
 
-export default function Map() {
+export default function Map({ initialLocation }) {
   const mapElement = useRef(null);
   const map = useRef(null);
-  const [lat, setLat] = useState(51.5);
-  const [lng, setLng] = useState(0.01);
+  const [lat, setLat] = useState(initialLocation.lat || 51.5);
+  const [lng, setLng] = useState(initialLocation.lng || 0.01);
   const [zoom, setZoom] = useState(10);
   const [activeEvent, setActiveEvent] = useState(null);
 
