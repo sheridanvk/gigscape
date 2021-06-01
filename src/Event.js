@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import PropTypes from "prop-types";
 
 const parseArtistDisplayName = (displayName) => {
   // sometimes the market is provided in parentheses after the artist name, so we split them
@@ -9,6 +10,10 @@ const parseArtistDisplayName = (displayName) => {
   const result = { artistName };
   if (market) result.market = market;
   return result;
+};
+
+Event.propTypes = {
+  event: { performance: [{ artist: { displayName: PropTypes.string } }] },
 };
 
 export default function Event({ event }) {
@@ -39,7 +44,7 @@ export default function Event({ event }) {
     if ((!isLoading && !currentArtistSpotify) || isError) {
       return (
         <p className="no-music">
-          Can't find music on Spotify :( try{" "}
+          Can&apos;t find music on Spotify :( try{" "}
           <a
             href={`https://www.google.com/search?q='${encodeURI(
               artists[artistIndex].displayName

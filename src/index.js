@@ -34,6 +34,7 @@ const Application = () => {
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         {initialLocation && <Map initialLocation={initialLocation} />}
+        {/* <Footer></Footer> */}
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </React.StrictMode>
