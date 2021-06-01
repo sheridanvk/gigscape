@@ -1,10 +1,11 @@
-const axios = require("axios");
+import { Handler } from "@netlify/functions";
+import axios from "axios";
 
-exports.handler = async function (event, context) {
+const handler: Handler = async (event, _context) => {
   try {
     if (
       !process.env.SPOTIFY_AUTH_TOKEN ||
-      Date.now() > process.env.SPOTIFY_AUTH_TOKEN_EXPIRY_DATE
+      new Date() > new Date(process.env.SPOTIFY_AUTH_TOKEN_EXPIRY_DATE as string)
     ) {
       const { data: response } = await axios.post(
         "https://accounts.spotify.com/api/token",
@@ -23,10 +24,10 @@ exports.handler = async function (event, context) {
       process.env.SPOTIFY_AUTH_TOKEN = response.access_token;
       const now = new Date();
       now.setTime(now.getTime() + response.expires_in * 1000);
-      process.env.SPOTIFY_AUTH_TOKEN_EXPIRY_DATE = now;
+      process.env.SPOTIFY_AUTH_TOKEN_EXPIRY_DATE = String(now);
     }
 
-    const { name } = event.queryStringParameters;
+    const { name } = event.queryStringParameters as {name: string};
     const { data: spotifyArtistResults } = await axios.get(
       "https://api.spotify.com/v1/search",
       {
@@ -59,3 +60,5 @@ exports.handler = async function (event, context) {
     };
   }
 };
+
+export { handler };

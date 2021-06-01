@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledHeader = styled.header`
   align-items: center;
@@ -27,6 +28,11 @@ const StyledGeocoder = styled.div`
 const StyledLogo = styled.img`
   max-width: 145px;
 `;
+
+Header.propTypes = {
+  accessToken: PropTypes.String,
+  map: PropTypes.Object,
+};
 
 export default function Header({ accessToken, map }) {
   const geocoderRef = useRef();

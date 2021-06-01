@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "./Header";
 import Event from "./Event";
 import { useQuery } from "react-query";
+import PropTypes from "prop-types";
 
 // This is my access token, with read-only settings, which you have to include in client code to display map tiles.
 // You can get your own at mapbox.com!
@@ -15,6 +16,10 @@ const dateToday = () => {
   const offset = today.getTimezoneOffset();
   const result = new Date(today.getTime() - offset * 60 * 1000);
   return result.toISOString().split("T")[0];
+};
+
+Map.propTypes = {
+  initialLocation: { lat: PropTypes.number, lng: PropTypes.number },
 };
 
 export default function Map({ initialLocation }) {
