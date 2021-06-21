@@ -33,6 +33,7 @@ const Application = () => {
         setInitialLocation({ lat, lng });
       } catch {
         console.error("No access to location services");
+        setInitialLocation({ lat: 51.5, lng: 0.01 });
       }
     };
 

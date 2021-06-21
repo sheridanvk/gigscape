@@ -27,8 +27,8 @@ export default function Map({
 }: MapOptions): JSX.Element | null {
   const mapElement = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [lat, setLat] = useState(initialLocation.lat || 51.5);
-  const [lng, setLng] = useState(initialLocation.lng || 0.01);
+  const [lat, setLat] = useState(initialLocation.lat);
+  const [lng, setLng] = useState(initialLocation.lng);
   const [zoom, setZoom] = useState(10);
   const [activeEvent, setActiveEvent] = useState<EventType | null>(null);
 
