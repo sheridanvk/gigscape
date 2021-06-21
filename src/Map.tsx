@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "./Header";
 import Event from "./Event";
 import { useQuery } from "react-query";
-import PropTypes from "prop-types";
+import { EventType, LatLngType } from "./types";
 
 // This is my access token, with read-only settings, which you have to include in client code to display map tiles.
 // You can get your own at mapbox.com!
@@ -18,36 +18,39 @@ const dateToday = () => {
   return result.toISOString().split("T")[0];
 };
 
-Map.propTypes = {
-  initialLocation: { lat: PropTypes.number, lng: PropTypes.number },
+type MapOptions = {
+  initialLocation: LatLngType;
 };
 
-export default function Map({ initialLocation }) {
-  const mapElement = useRef(null);
-  const map = useRef(null);
+export default function Map({
+  initialLocation,
+}: MapOptions): JSX.Element | null {
+  const mapElement = useRef<HTMLDivElement | null>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
   const [lat, setLat] = useState(initialLocation.lat || 51.5);
   const [lng, setLng] = useState(initialLocation.lng || 0.01);
   const [zoom, setZoom] = useState(10);
-  const [activeEvent, setActiveEvent] = useState(null);
+  const [activeEvent, setActiveEvent] = useState<EventType | null>(null);
 
   // Setup
   useEffect(() => {
     if (map.current) return; // initialize map only once
 
     map.current = new mapboxgl.Map({
-      container: mapElement.current,
+      container: (mapElement as React.MutableRefObject<HTMLElement>).current,
       style: "mapbox://styles/mapbox/dark-v9",
       center: [lng, lat],
       zoom: zoom,
       minZoom: 10,
     });
-    map.current.on("moveend", () => {
-      setLng(map.current.getCenter().lng.toFixed(1));
-      setLat(map.current.getCenter().lat.toFixed(1));
-      setZoom(map.current.getZoom().toFixed(2));
+    const currentMapRef = map.current;
+    currentMapRef.on("moveend", () => {
+      setLng(Number(currentMapRef.getCenter().lng.toFixed(1)));
+      setLat(Number(currentMapRef.getCenter().lat.toFixed(1)));
+      setZoom(Number(currentMapRef.getZoom().toFixed(2)));
       setActiveEvent(null);
     });
-    map.current.on("mouseup", () => {
+    currentMapRef.on("mouseup", () => {
       setActiveEvent(null);
     });
   });
@@ -65,8 +68,11 @@ export default function Map({ initialLocation }) {
   );
 
   useEffect(() => {
+    if (!map.current) {
+      return;
+    }
     if (!isLoading && events) {
-      events.forEach((event) => {
+      events.forEach((event: EventType) => {
         // create a HTML element for each feature
         const markerElement = document.createElement("div");
         markerElement.className = "marker";
@@ -80,7 +86,7 @@ export default function Map({ initialLocation }) {
           anchor: "bottom",
         })
           .setLngLat([event.location.lng, event.location.lat])
-          .addTo(map.current);
+          .addTo(map.current as mapboxgl.Map);
       });
     }
   }, [events]);

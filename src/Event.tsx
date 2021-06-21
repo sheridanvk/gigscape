@@ -1,22 +1,24 @@
 import React, { useMemo, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import PropTypes from "prop-types";
+import { EventType } from "./types";
 
-const parseArtistDisplayName = (displayName) => {
+const parseArtistDisplayName = (
+  displayName: string
+): { artistName: string; market?: string } => {
   // sometimes the market is provided in parentheses after the artist name, so we split them
-  const market = displayName.match(/\((.*?)\)/);
+  const market = displayName.match(/\((.*?)\)/)?.[0];
   const artistName = displayName.replace(/ \((.*?)\)/, "");
-  const result = { artistName };
+  const result = { artistName } as { artistName: string; market?: string };
   if (market) result.market = market;
   return result;
 };
 
-Event.propTypes = {
-  event: { performance: [{ artist: { displayName: PropTypes.string } }] },
+type EventOptions = {
+  event: EventType;
 };
 
-export default function Event({ event }) {
+export default function Event({ event }: EventOptions): JSX.Element {
   const artists = useMemo(
     () => event.performance.map((performance) => performance.artist),
     [event]
@@ -72,7 +74,6 @@ export default function Event({ event }) {
               style={{
                 gridArea: "1 / 1 / 1 / 1",
               }}
-              allowtransparency="true"
               allow="encrypted-media"
               title={`Spotify Player for ${artists[artistIndex].displayName}`}
             />

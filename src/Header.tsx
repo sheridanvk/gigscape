@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const StyledHeader = styled.header`
   align-items: center;
@@ -29,19 +28,25 @@ const StyledLogo = styled.img`
   max-width: 145px;
 `;
 
-Header.propTypes = {
-  accessToken: PropTypes.String,
-  map: PropTypes.Object,
+type HeaderOptions = {
+  accessToken: string;
+  map: mapboxgl.Map;
 };
 
-export default function Header({ accessToken, map }) {
-  const geocoderRef = useRef();
+export default function Header({
+  accessToken,
+  map,
+}: HeaderOptions): JSX.Element {
+  const geocoderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!geocoderRef.current) {
+      return;
+    }
     const geocoder = new MapboxGeocoder({
       accessToken: accessToken,
       flyTo: { duration: 0 },
-      mapboxgl,
+      mapboxgl: map,
       placeholder: "Search for location",
     });
 
