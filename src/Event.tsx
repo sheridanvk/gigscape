@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { EventType } from "./types";
+import { ArtistType, EventType } from "./types";
+import { Player } from "./Player";
 
 const parseArtistDisplayName = (
   displayName: string
@@ -27,8 +28,11 @@ export default function Event({ event }: EventOptions): JSX.Element {
 
   const {
     isLoading,
-    isError,
     data: currentArtistSpotify,
+  }: {
+    isLoading: boolean;
+    isError: boolean;
+    data: { id: string } | undefined;
   } = useQuery(
     `artistName-${artists[artistIndex].displayName}`,
     async () =>
@@ -42,46 +46,10 @@ export default function Event({ event }: EventOptions): JSX.Element {
       ).data
   );
 
-  const playerHTML = useMemo(() => {
-    if ((!isLoading && !currentArtistSpotify) || isError) {
-      return (
-        <p className="no-music">
-          Can&apos;t find music on Spotify :( try{" "}
-          <a
-            href={`https://www.google.com/search?q='${encodeURI(
-              artists[artistIndex].displayName
-            )}'+band`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Google?
-          </a>
-        </p>
-      );
-    } else {
-      return (
-        <div className="iframe-wrapper">
-          <div className="iframe-loading">
-            <p>Loading music...</p>
-          </div>
-          {!isLoading && (
-            <iframe
-              key={currentArtistSpotify.id}
-              src={`https://open.spotify.com/embed?uri=spotify:artist:${currentArtistSpotify.id}`}
-              width="250"
-              height="80"
-              frameBorder="0"
-              style={{
-                gridArea: "1 / 1 / 1 / 1",
-              }}
-              allow="encrypted-media"
-              title={`Spotify Player for ${artists[artistIndex].displayName}`}
-            />
-          )}
-        </div>
-      );
-    }
-  }, [artists, artistIndex, currentArtistSpotify, isLoading]);
+  const artistPlayerData: ArtistType = {
+    name: artists[artistIndex].displayName,
+    spotifyId: currentArtistSpotify?.id,
+  };
 
   return (
     <div id="inset">
@@ -110,7 +78,17 @@ export default function Event({ event }: EventOptions): JSX.Element {
         <div className="artist">
           <p className="artist-name">{artists[artistIndex].displayName}</p>
           <div className="centeredRow">
-            <div className="musicPlayer">{playerHTML}</div>
+            <div className="musicPlayer">
+              <div className="iframe-wrapper">
+                {isLoading ? (
+                  <div className="iframe-loading">
+                    <p>Loading music...</p>
+                  </div>
+                ) : (
+                  <Player artist={artistPlayerData} />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

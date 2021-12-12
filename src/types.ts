@@ -10,3 +10,8 @@ export type EventType = {
   venue: { displayName: string };
   uri: string;
 };
+
+export type ArtistType = {
+  name: string;
+  spotifyId?: string;
+};
